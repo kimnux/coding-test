@@ -1,5 +1,6 @@
 package test2021;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -52,19 +53,15 @@ public class Test20210906 {
         	for(int j = 1; j <= N; j++) {
         		if(stages[i] == j) {
         			failPer[j-1] += 1;
-        			continue;
+        			break;
         		}
         	}
         }
         
-//        System.out.println(Arrays.toString(failPer));
-        
-        Map<String,Integer> map = new HashMap();
+        Map<String,Integer> map = new HashMap<>();
         for(int i = 0; i < failPer.length; i++) {
         	if(i > 0) denominator = (denominator-failPer[i-1]);
-//        	System.out.println("분모 : " + denominator);
         	System.out.println(i+1 + "단계 : " + failPer[i] + "/" + denominator);
-//        	System.out.println(failPer[i]*100/denominator);
         	map.putIfAbsent((i+1)+"", failPer[i]*100/denominator);
         }
 
