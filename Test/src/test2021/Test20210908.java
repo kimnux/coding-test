@@ -35,9 +35,54 @@ public class Test20210908 {
 		예5	"abcdefghijklmn.p"	"abcdefghijklmn"
 		*/
 		String new_id = "........................";
-		String result = solution(new_id);
+		String result = solution2(new_id);
 		
 		System.out.println(result);
+	}
+	
+	public static String solution2(String new_id) {
+		String answer = "";
+		
+		/*
+		 정규표현식
+			^ : 시작표시(매칭이 처음부터 되어야 함)
+			'^' 가 문자셋([abc]) 패턴의 첫 글자로 [^abc]이렇게 쓰인다면, 부정 문자셋을 의미한다..
+			$ : 끝표시(문자열 끝에 매칭되어야 함)
+			[] : 문자열 셋
+			      [ab][a-z][0-9] 라고 써주면 첫글자는 a또는 b이고 그 다음에 a~z가 나오고 그 뒤에 0~9가 나온다는 뜻..
+			      []안에서 ^쓰면 그 문자가 아닌것들
+			* : 0번 이상 반복
+			+ : 1번 이상 반복
+			? : 0 또는 1회
+			{} : 횟수 표시
+			      [a]{2}이면 aa이고 [a]{2,}이면 a가 2개 이상인거 [a]{2, 4}이면 aa, aaa, aaaa 이다.
+			\d : 숫자, [0-9]와 같음
+			\D : 숫자가 아닌 것들 [^0-9]와 같음
+			| : Or의 뜻
+			{} : 그룹을 묶어 준다.
+			. : 뉴라인(\n)제외한 한 문자 (진짜 .을 찍기 위해선 \.으로 표시해야 한다.)
+		*/
+		
+		new_id = new_id.toLowerCase(); // 1단계 new_id의 모든 대문자를 대응되는 소문자로 치환합니다.
+		new_id = new_id.replaceAll("[^a-z0-9-_.]", ""); // 2단계 new_id에서 알파벳 소문자, 숫자, 빼기(-), 밑줄(_), 마침표(.)를 제외한 모든 문자를 제거합니다.
+		new_id = new_id.replaceAll("[.]{2,}", "."); // 3단계 new_id에서 마침표(.)가 2번 이상 연속된 부분을 하나의 마침표(.)로 치환합니다.
+		new_id = new_id.replaceAll("^[.]|[.]$", ""); // 4단계 new_id에서 마침표(.)가 처음이나 끝에 위치한다면 제거합니다.
+		if(new_id.length() == 0) new_id = "a"; // 5단계 new_id가 빈 문자열이라면, new_id에 "a"를 대입합니다.
+		if(new_id.length() > 15) {
+			new_id = new_id.substring(0, 15); //	6단계 new_id의 길이가 16자 이상이면, new_id의 첫 15개의 문자를 제외한 나머지 문자들을 모두 제거합니다.
+			new_id = new_id.replaceAll("^[.]|[.]$", ""); // 만약 제거 후 마침표(.)가 new_id의 끝에 위치한다면 끝에 위치한 마침표(.) 문자를 제거합니다.
+		}
+		if(new_id.length() <= 2) { 
+			// 7단계 new_id의 길이가 2자 이하라면, new_id의 마지막 문자를 new_id의 길이가 3이 될 때까지 반복해서 끝에 붙입니다.
+			while(new_id.length() < 3) {
+				new_id += new_id.charAt(new_id.length()-1)+"";
+			}
+		}
+		System.out.println(new_id);
+
+		answer = new_id;
+		
+		return answer;
 	}
 	
 	public static String solution(String new_id) {
