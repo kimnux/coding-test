@@ -22,58 +22,55 @@ participant																			completion													return
 
 public class Test20210915 {
 	public static void main(String[] args) {
-		Solution test = new Solution();
 		
 		String[] participant = {"leo", "kiki", "eden"};
 		String[] completion = {"eden", "kiki"};
 		
-		String result = test.solution2(participant, completion);
+		String result = solution2(participant, completion);
 		System.out.println(result);
+	}
+	// 효율성 테스트 0점
+	public static String solution(String[] participant, String[] completion) {
+		System.out.println("solution1");
+		String answer = "";
+		
+		List<String> list = new ArrayList<>();
+		
+		for(int i = 0; i < participant.length; i++) list.add(participant[i]);
+		
+		for(int i = 0; i < completion.length; i++) {
+			if(list.contains(completion[i])) {
+				int index = list.indexOf(completion[i]);
+				list.remove(index);
+			}
+		}
+		answer = list.get(0);
+		return answer;
+	}
+	
+	// 성공
+	public static String solution2(String[] participant, String[] completion) {
+		System.out.println("solution2");
+		String answer = "";
+		
+		Arrays.sort(participant);
+		Arrays.sort(completion);
+		
+		for(int i = 0; i < completion.length; i++) {
+			if(!completion[i].equals(participant[i])) {
+				answer = participant[i]; 
+				break;
+			} else {
+				answer = participant[participant.length-1];
+			}
+		}
+		
+		return answer;
 	}
 }
 
-class Solution {
 	
-	// 효율성 테스트 0점
-    public String solution(String[] participant, String[] completion) {
-    	System.out.println("solution1");
-        String answer = "";
-
-        List<String> list = new ArrayList<>();
-        
-        for(int i = 0; i < participant.length; i++) list.add(participant[i]);
-        
-        for(int i = 0; i < completion.length; i++) {
-        	if(list.contains(completion[i])) {
-        		int index = list.indexOf(completion[i]);
-        		list.remove(index);
-        	}
-        }
-        answer = list.get(0);
-        return answer;
-    }
-
-    // 성공
-    public String solution2(String[] participant, String[] completion) {
-    	System.out.println("solution2");
-    	String answer = "";
-    	
-    	Arrays.sort(participant);
-    	Arrays.sort(completion);
-    	
-    	for(int i = 0; i < completion.length; i++) {
-    		if(!completion[i].equals(participant[i])) {
-    			answer = participant[i]; 
-    			break;
-    		} else {
-    			answer = participant[participant.length-1];
-    		}
-    	}
-    	
-    	return answer;
-    }
     
-}
 
 
 
